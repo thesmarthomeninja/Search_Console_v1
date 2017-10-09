@@ -4,11 +4,10 @@ library(dplyr)
 
 ## this will differ from website to website, 
 ## but in most cases you will need to add the domain to the GA urls:
-gadata$page <- paste0("www.build.com", gadata$landingPagePath)
+## gadata$page <- paste0("www.yourdomain.com", gadata$landingPagePath)
 ## gadata has urls www.example.com/pagePath
 ## scdata has urls in http://www.example.com/pagePath
-#scdata$page2 <- gsub("https://www.build.com","", scdata$page)
-scdata$page2 <- gsub("https://","", scdata$page)
+scdata$page2 <- gsub("http://","", scdata$page)
 
 ## get SERP
 scdata$serp <- cut(scdata$position, 

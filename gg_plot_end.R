@@ -2,7 +2,8 @@ library(ggplot2)
 
 ## CTR per position
 ctr_plot <- ggplot(tidy_data, aes(x = position, 
-                                  y = ctr))
+                                  y = ctr
+                                  ))
 ctr_plot <- ctr_plot + theme_minimal()
 ctr_plot <- ctr_plot + coord_cartesian(xlim = c(1,30), 
                                        ylim = c(0, 0.5))
@@ -38,10 +39,11 @@ est_plot <- est_plot + geom_crossbar(aes(fill = cut(accuracyEst,
                                                     3, 
                                                     labels = c("Good",
                                                                "Ok",
-                                                               "Poor"))), 
+                                                               "Poor"))
+                                                               ), 
                                      alpha = 0.7, 
                                      show.legend = FALSE)
-
+                                     
 est_plot <- est_plot + scale_x_discrete(name = "Query")
 est_plot <- est_plot + scale_y_continuous(name = "Estimated SEO Revenue Increase for Google #1", 
                                           labels = scales::dollar_format(prefix = "£"))
@@ -49,13 +51,3 @@ est_plot <- est_plot + geom_label(aes(label = round(position)),
                                   hjust = "center")
 est_plot <- est_plot + ggtitle("SEO Potential Revenue (Current position)")
 est_plot
-
-
-#export data into a csv for records
-#Create list of google analytics and search console objects, written as strings:
-library(WriteXLS)
-objlist <- c("scdata", "gadata", "joined_data", "tidy_data", "predict_click", "estimates", "click_curve")
-
-#Write out Excel file with auto-width columns, a bolded header row and filters turned on
-WriteXLS(objlist, "/Users/Kalen/Documents/Search_Console_v1/export_results.xlsx",
-         AdjWidth = TRUE, BoldHeaderRow = TRUE, AutoFilter = TRUE)

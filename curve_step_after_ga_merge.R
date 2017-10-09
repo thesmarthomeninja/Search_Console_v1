@@ -2,7 +2,7 @@ library(dplyr)
 
 click_curve <- tidy_data %>% 
   group_by(positionRound) %>% 
-  summarise(CTRmean = mean(clicks)/mean(impressions),
+  summarise(CTRmean = sum(clicks) / sum(impressions),
             n = n(),
             click.sum = sum(clicks),
             impressions.sum = sum(impressions),
@@ -13,7 +13,7 @@ click_curve <- tidy_data %>%
 
 ## add % increase to position 1
 ## could also include other positions
-click_curve <- click_curve 
+click_curve <- click_curve %>% 
   mutate(CTR1 = CTRmean[1] / CTRmean,
          CTR1.upper = upper[1] / upper,
          CTR1.lower = lower[1] / lower)
